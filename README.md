@@ -23,19 +23,19 @@ Le score sera basé sur le temps restant et le nombre de punitions qu'il aura re
 A tous moment le jeu pourra être mis en pause et le joueur pourra voir l'objetif, temps restant et autres options.
 </div>
 <h1>Composants</h1>
-Le jeu aura plusieurs Composants: 
-- joueur
-- ennemies
-- terrain : couloirs, murs et locaux
-- objets atomes
-- tableaux infos
-- compteur temps
-- interface graphique et jeu
-- classes leçons 
-- scripts
+Le jeu aura plusieurs Composants: <br>
+- joueur <br>
+- ennemies<br>
+- terrain : couloirs, murs et locaux<br>
+- objets atomes<br>
+- tableaux infos<br>
+- compteur temps<br>
+- interface graphique et jeu<br>
+- classes leçons <br>
+- scripts<br>
 
 <h1> ennemies </h1>
 <div> 
-- Les ennemies seront capable de se déplacer par eux-mêmes dans les couloir.
+- Les ennemies seront capable de se déplacer par eux-mêmes dans les couloir.<br>
 - Il y aura deux types d'ennemies. Ceux qui se déplace par un vecteur fixe et ceux qui auront leur déplacement déterminé selon la position du joueur
 </div>
