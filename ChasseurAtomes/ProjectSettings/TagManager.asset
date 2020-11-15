@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Joueur
   - Chemin
+  - EnnemiV1
+  - Bureau
   layers:
   - Default
   - TransparentFX

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Sodium
   m_EditorClassIdentifier: 
   prefab: {fileID: 7495763146371504052, guid: cf7d7ea2cbca12542b53644ad3b980af, type: 3}
+  icon: {fileID: 21300000, guid: 54b2d959cd2639c448e3cfa5f1865f15, type: 3}
   type: 0
   electrons: 1
+  TypeAtome: 0

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Oxygen
   m_EditorClassIdentifier: 
   prefab: {fileID: 3553896061519759106, guid: 8ee9bdfe55640064aa1c8e5dbcbfc2c4, type: 3}
+  icon: {fileID: 21300000, guid: 15f7efc681ba1524993be3bb36c98170, type: 3}
   type: 0
   electrons: 6
+  TypeAtome: 1

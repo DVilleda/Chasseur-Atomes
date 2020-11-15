@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Magnesium
   m_EditorClassIdentifier: 
   prefab: {fileID: 6513637717225601211, guid: b6749d20cdca18b48aa4a7878d801454, type: 3}
+  icon: {fileID: 21300000, guid: fda7fb78c1555774aac3d9acd2b881e1, type: 3}
   type: 0
   electrons: 2
+  TypeAtome: 0

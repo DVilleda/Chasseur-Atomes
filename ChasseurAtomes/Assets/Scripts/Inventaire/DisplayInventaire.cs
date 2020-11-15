@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-
+using UnityEngine.UI;
 using TMPro;
 public class DisplayInventaire : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class DisplayInventaire : MonoBehaviour
     public int X_ESPACE_ENTRE_ITEM;
     public int NOMBRE_COLONNES;
     public int Y_ESPACE_ENTRE_ITEM;
+    [SerializeField]
+    bool MenuCombiner = false;
 
     Dictionary<InventorySlot, GameObject> itemsAfficher = new Dictionary<InventorySlot, GameObject>();
     // Start is called before the first frame update
@@ -28,13 +31,25 @@ public class DisplayInventaire : MonoBehaviour
 
     public void CreerDisplay()
     {
-        for (int i=0;i<inventaire.Conteneur.Count;i++)
+        if (!MenuCombiner)
         {
-            var obj = Instantiate(inventaire.Conteneur[i].item.prefab, Vector3.zero,Quaternion.identity, transform);
-            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = inventaire.Conteneur[i].quantite.ToString("n0");
+            for (int i = 0; i < inventaire.Conteneur.Count; i++)
+            {
+                var obj = Instantiate(inventaire.Conteneur[i].item.prefab, Vector3.zero, Quaternion.identity, transform);
+                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                obj.GetComponentInChildren<Text>().text = inventaire.Conteneur[i].quantite.ToString("n0");
 
-            itemsAfficher.Add(inventaire.Conteneur[i], obj);
+                itemsAfficher.Add(inventaire.Conteneur[i], obj);
+            }
+        }
+        else if (MenuCombiner)
+        {
+            for (int i = 0; i < inventaire.Conteneur.Count; i++)
+            {
+                var obj = Instantiate(inventaire.Conteneur[i].item.prefab, Vector3.zero, Quaternion.identity, transform);
+                obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+                itemsAfficher.Add(inventaire.Conteneur[i], obj);
+            }
         }
     }
 
@@ -44,7 +59,10 @@ public class DisplayInventaire : MonoBehaviour
         {
             if (itemsAfficher.ContainsKey(inventaire.Conteneur[i]))
             {
-                itemsAfficher[inventaire.Conteneur[i]].GetComponentInChildren<TextMeshProUGUI>().text = inventaire.Conteneur[i].quantite.ToString("n0");
+                if (!MenuCombiner)
+                {
+                    itemsAfficher[inventaire.Conteneur[i]].GetComponentInChildren<Text>().text = inventaire.Conteneur[i].quantite.ToString("n0");
+                }
             }
             else 
             {

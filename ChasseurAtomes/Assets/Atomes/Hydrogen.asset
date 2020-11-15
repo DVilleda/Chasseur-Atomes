@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Hydrogen
   m_EditorClassIdentifier: 
   prefab: {fileID: 5156471656851563112, guid: 1be038bacf064db49b0de9491eeba936, type: 3}
+  icon: {fileID: 21300000, guid: 3938459bedc67bd4db2575fef29e3c30, type: 3}
   type: 0
   electrons: 1
+  TypeAtome: 1

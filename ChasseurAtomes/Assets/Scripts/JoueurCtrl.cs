@@ -5,10 +5,16 @@ using UnityEngine;
 public class JoueurCtrl : MonoBehaviour
 {
     public CharacterController manette;
+    [SerializeField]
+    private Transform positionInitiale;
+    [SerializeField]
+    private GameObject joueur;
+    [SerializeField]
+    int erreursRestantes = 3;
 
     [SerializeField]
     float vitesse = 12.0f, gravite = -9.81f;
-    
+
     private Vector3 vitesseJoueur;
     public Transform verifierSol;
     public float distanceSol = 0.4f;
@@ -16,12 +22,12 @@ public class JoueurCtrl : MonoBehaviour
     private bool toucheSol;
     Animator animator;
 
+    public bool pretCombiner = false;
+
     public Inventaire inventaire;
-    private Rigidbody joueur;
     // Start is called before the first frame update
     void Start()
     {
-        joueur = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
         animator.SetBool("ToucheSol",true);
@@ -41,20 +47,12 @@ public class JoueurCtrl : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-
         manette.Move(move * Time.deltaTime * vitesse);
 
-        //Verifier la direction mouvement pour animation
-        if (manette.velocity.z < 0) {
-            animator.SetFloat("VitXZ", 0);
-            animator.SetFloat("ReculerZ", manette.velocity.z);
-        } else {
-            animator.SetFloat("VitXZ", Mathf.Abs(manette.velocity.x + manette.velocity.z));
-            animator.SetFloat("ReculerZ", 0);
-        }
+        //Verifier la direction mouvement pour animation    
+        animator.SetFloat("VitXZ", Mathf.Abs(manette.velocity.x + manette.velocity.z));
 
         //TODO Ajouter le jump?
-
         vitesseJoueur.y += gravite * Time.deltaTime;
         manette.Move(vitesseJoueur * Time.deltaTime);
     }
@@ -64,12 +62,45 @@ public class JoueurCtrl : MonoBehaviour
         
     }
 
+    //Retourner le nombre de vies qui reste
+    public double getErreursRestantes()
+    {
+        return erreursRestantes;
+    }
+
+    private void PunitionSurveillant() 
+    {
+        transform.position = positionInitiale.transform.position;
+        erreursRestantes--;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
     public void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "EnnemiV1")
+        {
+            PunitionSurveillant();
+        } else if (other.tag == "Bureau")
+        {
+            pretCombiner = true;
+        }
+
         var item = other.GetComponent<Item>();
         if (item) {
             inventaire.AjouterItem(item.item, 1);
             Destroy(other.gameObject);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Bureau")
+        {
+            pretCombiner = false;
         }
     }
 

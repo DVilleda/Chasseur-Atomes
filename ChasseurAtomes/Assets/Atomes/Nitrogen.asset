@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Nitrogen
   m_EditorClassIdentifier: 
   prefab: {fileID: 1492673749244741623, guid: 2a2b1330dc3f71441b75b38d46b18a11, type: 3}
+  icon: {fileID: 21300000, guid: 316cce88668388940b2461871ab86dee, type: 3}
   type: 0
   electrons: 5
+  TypeAtome: 1

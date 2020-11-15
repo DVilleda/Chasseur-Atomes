@@ -25,6 +25,34 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
             Conteneur.Add(new InventorySlot(itemDatabaseObject.GetId[_item], _item, _quantite));
     }
 
+    public bool creerUnLien(int TailleInv,string typeLien) 
+    {
+        int TotalElectrons = 0;
+        if (typeLien.Equals("Ionique"))
+        {
+            for (int i=0;i<TailleInv;i++) 
+            {
+                TotalElectrons += (Conteneur[i].quantite * Conteneur[i].item.electrons);
+            }
+            if (TotalElectrons % 8 == 0)
+            {
+                return true;
+            }
+        }
+        else if (typeLien.Equals("Covalente"))
+        {
+            for (int i = 0; i < TailleInv; i++)
+            {
+                TotalElectrons += (Conteneur[i].quantite * Conteneur[i].item.electrons) % 2;
+            }
+            if (TotalElectrons%2==0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void Save()
     {
         string saveData = JsonUtility.ToJson(this, true);
@@ -73,5 +101,10 @@ public class InventorySlot
     public void AddAmount(int value) 
     {
         quantite += value;
+    }
+
+    public void SetAmount(int value) 
+    {
+        quantite = value;
     }
 }

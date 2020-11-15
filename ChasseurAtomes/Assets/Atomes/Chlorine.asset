@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Chlorine
   m_EditorClassIdentifier: 
   prefab: {fileID: 2860574172290556041, guid: 2390bbe676f03a9449cb95c022f5226b, type: 3}
+  icon: {fileID: 21300000, guid: c466d571f83865945bb5d07e514c026a, type: 3}
   type: 0
   electrons: 7
+  TypeAtome: 1
