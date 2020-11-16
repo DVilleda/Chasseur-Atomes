@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class JeuCtrl : MonoBehaviour
@@ -8,23 +9,25 @@ public class JeuCtrl : MonoBehaviour
     public Inventaire inventaireCombinaison;
     public Dropdown OptionChoisi;
     [SerializeField]
-    GameObject inventaireUI,infosInitiales,controlJeu;
-    [SerializeField]
     int tempsRestant = 91;
+    int TempsTotal;
+    int pointage;
     bool finTuto = false;
-    [SerializeField]
-    private Text txtTempsRestant, txtVies;
 
     [SerializeField]
     Canvas HUDJeu;
     HUD HUDCtrl;
+    [SerializeField]
+    private Text txtTempsRestant, txtVies;
+    public SonSFXCtrl ctrlSon;
 
     JoueurCtrl joueurCtrl;
     private bool btnEspaceUse = false;
-    private bool btnInteragir = false;
+    private bool finJeu = false;
     // Start is called before the first frame update
     void Start()
     {
+        TempsTotal = tempsRestant - 1;
         HUDCtrl = HUDJeu.GetComponent<HUD>();
         joueurCtrl = GameObject.Find("Personnage").GetComponent<JoueurCtrl>();
         HUDCtrl.AfficherIntro();
@@ -42,7 +45,7 @@ public class JeuCtrl : MonoBehaviour
                 btnEspaceUse = true;
             }
         }
-        else if (Input.GetAxis("Confirmer")==0) 
+        else if (Input.GetAxis("Confirmer") == 0)
         {
             btnEspaceUse = false;
         }
@@ -69,21 +72,41 @@ public class JeuCtrl : MonoBehaviour
 
         if (Input.GetKeyDown("p"))
         {
-            if (!inventaireUI.activeSelf)
+            if (!HUDCtrl.inventaireUI.activeSelf)
             {
-                inventaireUI.SetActive(true);
+                HUDCtrl.inventaireUI.SetActive(true);
                 Time.timeScale = 0f;
             }
             else {
-                inventaireUI.SetActive(false);
+                HUDCtrl.inventaireUI.SetActive(false);
                 Time.timeScale = 1f;
             }
+        }
+
+        if (finJeu && Input.GetKeyDown("space"))
+        {
+            LoadMenu();
         }
     }
 
     private void FixedUpdate()
     {
         
+    }
+
+    void LoadMenu() 
+    {
+        StartCoroutine(ChargerMenu());
+    }
+
+    public IEnumerator ChargerMenu() 
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main Menu");
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 
     public IEnumerator Tutorial() 
@@ -103,27 +126,38 @@ public class JeuCtrl : MonoBehaviour
         FinJeu();
     }
 
-    public void StartJeu()
-    {
-        Time.timeScale = 0f;
-        //Load Canevas Tutorial
-        if (Input.GetKeyDown("space"))
-        {
-            Debug.Log(Time.timeScale);
-            Time.timeScale = 1f;
-        }
-    }
-
     public void Combiner()
     {
         bool resultat;
         
         resultat = inventaireCombinaison.creerUnLien(inventaireCombinaison.Conteneur.Count, OptionChoisi.options[OptionChoisi.value].text);
-        Debug.Log(OptionChoisi.options[OptionChoisi.value].text);
         Debug.Log(resultat);
+        if (resultat)
+        {
+            HUDCtrl.ReponseOK.SetActive(true);
+        } else if (!resultat && joueurCtrl.getErreursRestantes()>0) 
+        {
+            ctrlSon.PerdreUneVie();
+            joueurCtrl.erreursRestantes--;
+            HUDCtrl.ReponseNoOK.SetActive(true);
+        }
+    }
+
+    public void CalculerPointage() 
+    {
+        int pointsTemps = Mathf.Abs(tempsRestant - TempsTotal);
+        int pointsVie = (joueurCtrl.getErreursRestantes()*10);
+        pointage = pointsTemps + pointsVie;
+    }
+
+    public void ReponseIncorrecte() 
+    {
+        HUDCtrl.ReponseNoOK.SetActive(false);
+        AnnulerCombiner();
     }
     public void AnnulerCombiner() 
     {
+        HUDCtrl.InteragirBureau.SetActive(true);
         inventaireCombinaison.Conteneur.Clear();
         joueurCtrl.pretCombiner = false;
         HUDCtrl.MenuCombiner.SetActive(false);
@@ -132,11 +166,24 @@ public class JeuCtrl : MonoBehaviour
     }
     public void FinJeu() 
     {
+        Cursor.lockState = CursorLockMode.None;
+        HUDCtrl.ReponseNoOK.SetActive(false);
         HUDCtrl.AfficherGameOver();
-        if (Input.GetKeyDown("space"))
-        { 
-            //Aller main menu scene
-        }
+        ctrlSon.ChargerSonPerdre();
+        finJeu = true;
+    }
+
+    public void GagnerJeu() 
+    {
+        StopCoroutine(DecrementerTemps());
+        int pointsTemps = tempsRestant;
+        int pointsVie = (joueurCtrl.getErreursRestantes() * 10);
+        pointage = pointsTemps + pointsVie;
+        string msg = "Vous avez réussi avec "+ tempsRestant + " secondes restantes et "+ joueurCtrl.getErreursRestantes() + " vies restantes. Votre score final est "+pointage+" .";
+        HUDCtrl.AfficherEcranVictoire(msg);
+        ctrlSon.GangerPartie();
+        inventaireCombinaison.Conteneur.Clear();
+        finJeu = true;
     }
 
     private void OnApplicationQuit()

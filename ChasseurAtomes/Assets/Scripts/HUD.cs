@@ -6,8 +6,12 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    public GameObject inventaireUI, infosInitiales, controlJeu,InteragirBureau,MenuCombiner,GameOver;
+    public GameObject infosJeu,inventaireUI, infosInitiales, controlJeu,InteragirBureau,MenuCombiner,GameOver;
+    public GameObject ReponseOK, ReponseNoOK,ItemPickup;
     public bool finTuto=false;
+
+    public GameObject ecranVictoire;
+    public Text TexteVictoire;
 
     public void finirLeTutorial()
     {
@@ -69,6 +73,7 @@ public class HUD : MonoBehaviour
 
     public void AfficherMenuCombiner() 
     {
+        InteragirBureau.SetActive(false);
         MenuCombiner.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
     }
@@ -76,5 +81,23 @@ public class HUD : MonoBehaviour
     public void AfficherGameOver() 
     {
         GameOver.SetActive(true);
+    }
+
+    public void AfficherEcranVictoire(string msg) 
+    {
+        ecranVictoire.SetActive(true);
+        TexteVictoire.text = msg;
+    }
+
+    public void afficherItemPickup() 
+    {
+        StartCoroutine(messageObjet());
+    }
+
+    public IEnumerator messageObjet() 
+    {
+        ItemPickup.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        ItemPickup.SetActive(false);
     }
 }

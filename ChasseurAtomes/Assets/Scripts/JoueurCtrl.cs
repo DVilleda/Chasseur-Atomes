@@ -10,7 +10,7 @@ public class JoueurCtrl : MonoBehaviour
     [SerializeField]
     private GameObject joueur;
     [SerializeField]
-    int erreursRestantes = 3;
+    public int erreursRestantes = 1;
 
     [SerializeField]
     float vitesse = 12.0f, gravite = -9.81f;
@@ -25,6 +25,8 @@ public class JoueurCtrl : MonoBehaviour
     public bool pretCombiner = false;
 
     public Inventaire inventaire;
+    public SonSFXCtrl ctrlSon;
+    public HUD hudctrl;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,13 +65,14 @@ public class JoueurCtrl : MonoBehaviour
     }
 
     //Retourner le nombre de vies qui reste
-    public double getErreursRestantes()
+    public int getErreursRestantes()
     {
         return erreursRestantes;
     }
 
     private void PunitionSurveillant() 
     {
+        ctrlSon.PerdreUneVie();
         transform.position = positionInitiale.transform.position;
         erreursRestantes--;
     }
@@ -91,6 +94,8 @@ public class JoueurCtrl : MonoBehaviour
 
         var item = other.GetComponent<Item>();
         if (item) {
+            ctrlSon.RammasserAtome();
+            hudctrl.afficherItemPickup();
             inventaire.AjouterItem(item.item, 1);
             Destroy(other.gameObject);
         }

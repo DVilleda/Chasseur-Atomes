@@ -22,6 +22,11 @@ public class SlotInventaire : MonoBehaviour
         ajouter.interactable = true;
     }
 
+    public void ViderInventaire() 
+    {
+        inventaireCombinaison.Conteneur.Clear();
+    }
+
     public void AjouterAtomeCombinaison() 
     {
         if (Int32.TryParse(quantite.text,out Int32 resultat)) 

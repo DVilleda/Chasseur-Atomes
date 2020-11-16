@@ -23,7 +23,7 @@ public class CameraSouris : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * sensiviteSouris * Time.deltaTime;
 
         Rotationx -= mouseY;
-        Rotationx = Mathf.Clamp(Rotationx, -90f, 90f);
+        Rotationx = Mathf.Clamp(Rotationx, -45f, 50f);
 
         transform.localRotation = Quaternion.Euler(Rotationx, 0f, 0f);
         jouerbody.Rotate(Vector3.up * mouseX);
