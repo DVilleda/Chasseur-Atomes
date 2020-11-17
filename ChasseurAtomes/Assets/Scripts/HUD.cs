@@ -13,6 +13,9 @@ public class HUD : MonoBehaviour
     public GameObject ecranVictoire;
     public Text TexteVictoire;
 
+    public GameObject LeconIonique, LeconCovalente,interagirPoster;
+
+    public GameObject MenuPause;
     public void finirLeTutorial()
     {
         //Afficher canevas

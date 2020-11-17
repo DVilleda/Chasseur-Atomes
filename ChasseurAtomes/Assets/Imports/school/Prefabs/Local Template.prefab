@@ -269,9 +269,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5820242490402003916}
   - component: {fileID: 3841915138672888558}
+  - component: {fileID: 6757375884731426181}
   m_Layer: 0
   m_Name: Lecon3
-  m_TagString: Untagged
+  m_TagString: Ionique
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -284,7 +285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683271066315623217}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -1.763, y: 1.19, z: 0.07999992}
+  m_LocalPosition: {x: -1.763, y: 1.19, z: 0.039}
   m_LocalScale: {x: 0.29198354, y: 0.39717078, z: 1}
   m_Children: []
   m_Father: {fileID: 3317852884488403177}
@@ -340,6 +341,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &6757375884731426181
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683271066315623217}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.0200005, y: 6.320001, z: 4.211767}
+  m_Center: {x: 0, y: 0.00000030014618, z: -1.9008837}
 --- !u!1 &2723171605408626165
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,9 +364,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3668562452864588637}
   - component: {fileID: 6872258955799186719}
+  - component: {fileID: 4729218020971117618}
   m_Layer: 0
   m_Name: Lecon1
-  m_TagString: Untagged
+  m_TagString: Covalente
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -421,6 +436,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &4729218020971117618
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2723171605408626165}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.42, y: 4.15, z: 5.4053783}
+  m_Center: {x: 0.0000016579721, y: 0, z: -2.8926895}
 --- !u!1 &2795815261477117942
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,9 +566,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1393998375285394205}
   - component: {fileID: 8899853805202270380}
+  - component: {fileID: 2103691183678182548}
   m_Layer: 0
   m_Name: Lecon2
-  m_TagString: Untagged
+  m_TagString: Ionique
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -609,6 +638,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &2103691183678182548
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901999198407475484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.29, y: 2.11, z: 4.9582024}
+  m_Center: {x: -0.0000008692995, y: 0.00000011409413, z: -2.3991008}
 --- !u!1001 &805259866518836709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -931,15 +973,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 3d58d5cb75277704fbee090d5dc98394, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 288b229db858c114299d1bf70ffc95cd, type: 3}
---- !u!4 &810014583123736877 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4895497590064792, guid: 288b229db858c114299d1bf70ffc95cd,
-    type: 3}
-  m_PrefabInstance: {fileID: 805259866844381109}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &804003347726533625 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1336309957540940, guid: 288b229db858c114299d1bf70ffc95cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 805259866844381109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &810014583123736877 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4895497590064792, guid: 288b229db858c114299d1bf70ffc95cd,
     type: 3}
   m_PrefabInstance: {fileID: 805259866844381109}
   m_PrefabAsset: {fileID: 0}
@@ -1102,15 +1144,15 @@ PrefabInstance:
       objectReference: {fileID: 2100020, guid: 3d58d5cb75277704fbee090d5dc98394, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df64657f50132d544870c1de38b5b3d6, type: 3}
---- !u!4 &805259867232155105 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: df64657f50132d544870c1de38b5b3d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 805259867232546657}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &805259867232643521 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: df64657f50132d544870c1de38b5b3d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 805259867232546657}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &805259867232155105 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: df64657f50132d544870c1de38b5b3d6,
     type: 3}
   m_PrefabInstance: {fileID: 805259867232546657}
   m_PrefabAsset: {fileID: 0}
@@ -1852,15 +1894,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 3d58d5cb75277704fbee090d5dc98394, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 288b229db858c114299d1bf70ffc95cd, type: 3}
---- !u!4 &810014582949681825 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4895497590064792, guid: 288b229db858c114299d1bf70ffc95cd,
-    type: 3}
-  m_PrefabInstance: {fileID: 805259868222053433}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &804003345874608245 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1336309957540940, guid: 288b229db858c114299d1bf70ffc95cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 805259868222053433}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &810014582949681825 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4895497590064792, guid: 288b229db858c114299d1bf70ffc95cd,
     type: 3}
   m_PrefabInstance: {fileID: 805259868222053433}
   m_PrefabAsset: {fileID: 0}

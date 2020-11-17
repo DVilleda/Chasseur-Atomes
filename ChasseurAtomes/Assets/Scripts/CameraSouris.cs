@@ -13,7 +13,8 @@ public class CameraSouris : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;   
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -23,7 +24,7 @@ public class CameraSouris : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * sensiviteSouris * Time.deltaTime;
 
         Rotationx -= mouseY;
-        Rotationx = Mathf.Clamp(Rotationx, -45f, 50f);
+        Rotationx = Mathf.Clamp(Rotationx, -60f, 60f);
 
         transform.localRotation = Quaternion.Euler(Rotationx, 0f, 0f);
         jouerbody.Rotate(Vector3.up * mouseX);

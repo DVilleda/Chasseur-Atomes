@@ -10,7 +10,7 @@ public class JoueurCtrl : MonoBehaviour
     [SerializeField]
     private GameObject joueur;
     [SerializeField]
-    public int erreursRestantes = 1;
+    public int erreursRestantes;
 
     [SerializeField]
     float vitesse = 12.0f, gravite = -9.81f;
@@ -23,6 +23,8 @@ public class JoueurCtrl : MonoBehaviour
     Animator animator;
 
     public bool pretCombiner = false;
+    public bool leconIonique = false;
+    public bool leconCovalent = false;
 
     public Inventaire inventaire;
     public SonSFXCtrl ctrlSon;
@@ -84,12 +86,22 @@ public class JoueurCtrl : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "EnnemiV1")
+        if (other.tag == "EnnemiV1" || other.tag == "EnnemiV2")
         {
+            Debug.Log(other.gameObject.name);
             PunitionSurveillant();
-        } else if (other.tag == "Bureau")
+        }
+        else if (other.tag == "Bureau" && inventaire.Conteneur.Count>0)
         {
             pretCombiner = true;
+        }
+        else if (other.tag == "Ionique")
+        {
+            leconIonique = true;
+        }
+        else if (other.tag == "Covalente")
+        {
+            leconCovalent = true;
         }
 
         var item = other.GetComponent<Item>();
@@ -106,6 +118,14 @@ public class JoueurCtrl : MonoBehaviour
         if (other.tag == "Bureau")
         {
             pretCombiner = false;
+        }
+        else if (other.tag == "Ionique")
+        {
+            leconIonique = false;
+        }
+        else if (other.tag == "Covalente")
+        {
+            leconCovalent = false;
         }
     }
 

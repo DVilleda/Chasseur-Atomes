@@ -57,12 +57,54 @@ public class JeuCtrl : MonoBehaviour
             {
                 Time.timeScale = 0f;
                 HUDCtrl.AfficherMenuCombiner();
+                Cursor.visible = true;
             }
         }
         else
         {
             HUDCtrl.InteragirBureau.SetActive(false);
         }
+
+        if (joueurCtrl.leconCovalent || joueurCtrl.leconIonique)
+        {
+            HUDCtrl.interagirPoster.SetActive(true);
+            if (Input.GetKeyDown("r"))
+            {
+                if (joueurCtrl.leconCovalent)
+                {
+                    if (!HUDCtrl.LeconCovalente.activeSelf)
+                    {
+                        HUDCtrl.LeconCovalente.SetActive(true);
+                        Time.timeScale = 0f;
+                    }
+                    else 
+                    {
+                        Time.timeScale = 1f;
+                        HUDCtrl.LeconCovalente.SetActive(false);
+                        joueurCtrl.leconCovalent = false;
+                    }
+                } else if (joueurCtrl.leconIonique)
+                {
+                    if (!HUDCtrl.LeconIonique.activeSelf)
+                    {
+                        HUDCtrl.LeconIonique.SetActive(true);
+                        Time.timeScale = 0f;
+
+                    }
+                    else
+                    {
+                        Time.timeScale = 1f;
+                        HUDCtrl.LeconIonique.SetActive(false);
+                        joueurCtrl.leconIonique = false;
+                    }
+                }
+            }
+        }
+        else
+        {
+            HUDCtrl.interagirPoster.SetActive(false);
+        }
+
         //Mettre a jour le HP restant
         txtVies.text = "Vies : "+joueurCtrl.getErreursRestantes().ToString();
         if (joueurCtrl.getErreursRestantes() == 0)
@@ -70,16 +112,18 @@ public class JeuCtrl : MonoBehaviour
             FinJeu();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            MenuPause();
+        }
         if (Input.GetKeyDown("p"))
         {
             if (!HUDCtrl.inventaireUI.activeSelf)
             {
                 HUDCtrl.inventaireUI.SetActive(true);
-                Time.timeScale = 0f;
             }
             else {
                 HUDCtrl.inventaireUI.SetActive(false);
-                Time.timeScale = 1f;
             }
         }
 
@@ -94,7 +138,7 @@ public class JeuCtrl : MonoBehaviour
         
     }
 
-    void LoadMenu() 
+    public void LoadMenu() 
     {
         StartCoroutine(ChargerMenu());
     }
@@ -107,6 +151,7 @@ public class JeuCtrl : MonoBehaviour
         {
             yield return null;
         }
+        HUDCtrl.MenuPause.SetActive(false);
     }
 
     public IEnumerator Tutorial() 
@@ -162,11 +207,13 @@ public class JeuCtrl : MonoBehaviour
         joueurCtrl.pretCombiner = false;
         HUDCtrl.MenuCombiner.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Time.timeScale = 1f;
     }
     public void FinJeu() 
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         HUDCtrl.ReponseNoOK.SetActive(false);
         HUDCtrl.AfficherGameOver();
         ctrlSon.ChargerSonPerdre();
@@ -189,5 +236,28 @@ public class JeuCtrl : MonoBehaviour
     private void OnApplicationQuit()
     {
         inventaireCombinaison.Conteneur.Clear();
+    }
+
+    public void MenuPause() 
+    {
+        if (!HUDCtrl.MenuPause.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            HUDCtrl.MenuPause.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else 
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            HUDCtrl.MenuPause.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void Quitter() 
+    {
+        Application.Quit();
     }
 }

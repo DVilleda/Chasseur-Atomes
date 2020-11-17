@@ -45,6 +45,7 @@ MonoBehaviour:
   chemin:
   - {fileID: 5944600573016013131}
   - {fileID: 5944600574274400658}
+  ennemi: {fileID: 0}
 --- !u!1 &5944600572609556608
 GameObject:
   m_ObjectHideFlags: 0

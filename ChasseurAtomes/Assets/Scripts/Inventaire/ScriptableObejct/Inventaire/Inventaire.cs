@@ -27,6 +27,10 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
 
     public bool creerUnLien(int TailleInv,string typeLien) 
     {
+        if (Conteneur.Count<1) 
+        {
+            return false;
+        }
         int TotalElectrons = 0;
         if (typeLien.Equals("Ionique"))
         {

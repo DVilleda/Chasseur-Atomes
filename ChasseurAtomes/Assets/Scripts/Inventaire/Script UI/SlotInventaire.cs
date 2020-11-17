@@ -25,6 +25,7 @@ public class SlotInventaire : MonoBehaviour
     public void ViderInventaire() 
     {
         inventaireCombinaison.Conteneur.Clear();
+        quantite.text = 0.ToString();
     }
 
     public void AjouterAtomeCombinaison() 
