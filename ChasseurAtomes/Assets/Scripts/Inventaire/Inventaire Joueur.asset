@@ -14,4 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   savePath: /inventaire.Atomes
   itemDatabaseObject: {fileID: 11400000, guid: 3fc371c86d7a8714da42188b9e56ef6a, type: 2}
-  Conteneur: []
+  Conteneur:
+  - ID: 0
+    item: {fileID: 11400000, guid: 508c543b208cdf24fb29090581db9f51, type: 2}
+    quantite: 2
+  - ID: 8
+    item: {fileID: 11400000, guid: 4d1d19b1c47a1924790067b02adac8e9, type: 2}
+    quantite: 3
