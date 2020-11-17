@@ -40,6 +40,10 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
 		//Si c'est un lien ionique on utilise modulo 8
         if (typeLien.Equals("Ionique"))
         {
+            if (Conteneur.Count<2) 
+            {
+                return false;
+            }
             for (int i=0;i<TailleInv;i++) 
             {
                 TotalElectrons += (Conteneur[i].quantite * Conteneur[i].item.electrons);
@@ -54,6 +58,10 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
         {
             for (int i = 0; i < TailleInv; i++)
             {
+                if (Conteneur[i].item.electrons < 4)
+                {
+                    return false;
+                }
                 TotalElectrons += (Conteneur[i].quantite * Conteneur[i].item.electrons) % 2;
             }
             if (TotalElectrons%2==0)
