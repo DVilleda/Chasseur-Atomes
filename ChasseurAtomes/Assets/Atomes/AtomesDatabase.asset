@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74d1da9e9490e547a9bda32d5c26bf7, type: 3}
+  m_Name: AtomesDatabase
+  m_EditorClassIdentifier: 
+  Items:
+  - {fileID: 11400000, guid: 508c543b208cdf24fb29090581db9f51, type: 2}
+  - {fileID: 11400000, guid: d98c1002d4823994595a7241af9ac98c, type: 2}
+  - {fileID: 11400000, guid: 95ba373cc9d2d884e8c0f32e180bafe0, type: 2}
+  - {fileID: 11400000, guid: 04f21b3344c1fe24c9ceac75fac3105b, type: 2}
+  - {fileID: 11400000, guid: 3cb029511c3381640a55f4baf18af76f, type: 2}
+  - {fileID: 11400000, guid: d25f24a7e6eb8f144bc7f2a2fe3ebb60, type: 2}
+  - {fileID: 11400000, guid: 359514b911a8019489ad78375a9353aa, type: 2}
+  - {fileID: 11400000, guid: 1b88d2f613feec944b6d75a13d040339, type: 2}
+  - {fileID: 11400000, guid: 4d1d19b1c47a1924790067b02adac8e9, type: 2}
