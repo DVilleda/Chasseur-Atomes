@@ -8,10 +8,14 @@ using System.IO;
 [CreateAssetMenu(fileName ="Nouvel Inventaire",menuName ="Inventory System/Inventaire")]
 public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
 {
+	//Classe inventaire qui va contenir nos objets
     public string savePath;
+	//Lien vers une BD
     public ItemDatabaseObject itemDatabaseObject;
+	//Liste des conteneurs d'objets dans l'inventaire
     public List<InventorySlot> Conteneur = new List<InventorySlot>();
 
+	//Fonction qui verifie si l'item existe deja et augmente la quantite ou cree un item
     public void AjouterItem(ItemObject _item, int _quantite) 
     {
         for (int i = 0; i < Conteneur.Count(); i++) 
@@ -24,7 +28,8 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
         }
             Conteneur.Add(new InventorySlot(itemDatabaseObject.GetId[_item], _item, _quantite));
     }
-
+	
+	//Fonction qui verifie s'occupe de cree un lien en comptant les electrons et les items soumis
     public bool creerUnLien(int TailleInv,string typeLien) 
     {
         if (Conteneur.Count<1) 
@@ -32,6 +37,7 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
             return false;
         }
         int TotalElectrons = 0;
+		//Si c'est un lien ionique on utilise modulo 8
         if (typeLien.Equals("Ionique"))
         {
             for (int i=0;i<TailleInv;i++) 
@@ -43,6 +49,7 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
                 return true;
             }
         }
+		//Si c'est un lien covelent on utilise modulo 2
         else if (typeLien.Equals("Covalente"))
         {
             for (int i = 0; i < TailleInv; i++)
@@ -56,7 +63,8 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
         }
         return false;
     }
-
+	
+	//Fonction pour sauvegarder les donnees 
     public void Save()
     {
         string saveData = JsonUtility.ToJson(this, true);
@@ -89,12 +97,14 @@ public class Inventaire : ScriptableObject, ISerializationCallbackReceiver
     {
     }
 }
+//Classe en charge de creer les conteneur d'item dans l'inventaire
 [System.Serializable]
 public class InventorySlot
 {
     public int ID;
     public ItemObject item;
     public int quantite;
+	//Creer un conteneur d'objet avec les params
     public InventorySlot(int _id,ItemObject objet, int nombre)
     {
         ID = _id;

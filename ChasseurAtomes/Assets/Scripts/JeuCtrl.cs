@@ -6,21 +6,26 @@ using UnityEngine.UI;
 
 public class JeuCtrl : MonoBehaviour
 {
+	//Variables Interface Combiner atomes
     public Inventaire inventaireCombinaison;
     public Dropdown OptionChoisi;
+	
+	//Variables du jeu
     [SerializeField]
     int tempsRestant = 91;
     int TempsTotal;
     int pointage;
     bool finTuto = false;
-
+	
+	//Variables de l'interface graphique
     [SerializeField]
     Canvas HUDJeu;
     HUD HUDCtrl;
     [SerializeField]
     private Text txtTempsRestant, txtVies;
     public SonSFXCtrl ctrlSon;
-
+	
+	//Variables pour le joueur
     JoueurCtrl joueurCtrl;
     private bool btnEspaceUse = false;
     private bool finJeu = false;
@@ -30,6 +35,7 @@ public class JeuCtrl : MonoBehaviour
         TempsTotal = tempsRestant - 1;
         HUDCtrl = HUDJeu.GetComponent<HUD>();
         joueurCtrl = GameObject.Find("Personnage").GetComponent<JoueurCtrl>();
+		//Commencer l'introduction
         HUDCtrl.AfficherIntro();
         StartCoroutine(Tutorial());
     }
@@ -37,6 +43,7 @@ public class JeuCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//Avancer a travers le tuto
         if (!finTuto && Input.GetAxis("Confirmer") != 0)
         {
             if (!btnEspaceUse)
@@ -49,7 +56,7 @@ public class JeuCtrl : MonoBehaviour
         {
             btnEspaceUse = false;
         }
-
+		//Commencer la combinaison d'atomes
         if (joueurCtrl.pretCombiner)
         {
             HUDCtrl.AfficherInteragirBureau();
@@ -64,7 +71,7 @@ public class JeuCtrl : MonoBehaviour
         {
             HUDCtrl.InteragirBureau.SetActive(false);
         }
-
+		//Voir une lecon selon le collider
         if (joueurCtrl.leconCovalent || joueurCtrl.leconIonique)
         {
             HUDCtrl.interagirPoster.SetActive(true);
@@ -111,11 +118,12 @@ public class JeuCtrl : MonoBehaviour
         {
             FinJeu();
         }
-
+		//Ouvrir menu pause
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             MenuPause();
         }
+		//Ouvrir inventaire
         if (Input.GetKeyDown("p"))
         {
             if (!HUDCtrl.inventaireUI.activeSelf)
@@ -126,7 +134,7 @@ public class JeuCtrl : MonoBehaviour
                 HUDCtrl.inventaireUI.SetActive(false);
             }
         }
-
+		//Finir le jeu et aller au menu principal
         if (finJeu && Input.GetKeyDown("space"))
         {
             LoadMenu();
@@ -137,7 +145,8 @@ public class JeuCtrl : MonoBehaviour
     {
         
     }
-
+	
+	//Charger le menu principal
     public void LoadMenu() 
     {
         StartCoroutine(ChargerMenu());
@@ -153,7 +162,8 @@ public class JeuCtrl : MonoBehaviour
         }
         HUDCtrl.MenuPause.SetActive(false);
     }
-
+	
+	//Coroutine du tutoriel et commencer le timer
     public IEnumerator Tutorial() 
     {
         yield return new WaitUntil(() => HUDCtrl.finTuto);
@@ -170,7 +180,8 @@ public class JeuCtrl : MonoBehaviour
         }
         FinJeu();
     }
-
+	
+	//Invoquer une combinaison et validation de la reponse
     public void Combiner()
     {
         bool resultat;
@@ -187,19 +198,22 @@ public class JeuCtrl : MonoBehaviour
             HUDCtrl.ReponseNoOK.SetActive(true);
         }
     }
-
+	
+	//Calcul du pointage
     public void CalculerPointage() 
     {
         int pointsTemps = Mathf.Abs(tempsRestant - TempsTotal);
         int pointsVie = (joueurCtrl.getErreursRestantes()*10);
         pointage = pointsTemps + pointsVie;
     }
-
+	
     public void ReponseIncorrecte() 
     {
         HUDCtrl.ReponseNoOK.SetActive(false);
         AnnulerCombiner();
     }
+	
+	//Annuler l'action de combiner
     public void AnnulerCombiner() 
     {
         HUDCtrl.InteragirBureau.SetActive(true);
@@ -210,6 +224,7 @@ public class JeuCtrl : MonoBehaviour
         Cursor.visible = false;
         Time.timeScale = 1f;
     }
+	//Finir le jeu avec defaite
     public void FinJeu() 
     {
         Cursor.lockState = CursorLockMode.None;
@@ -219,7 +234,8 @@ public class JeuCtrl : MonoBehaviour
         ctrlSon.ChargerSonPerdre();
         finJeu = true;
     }
-
+	
+	//Gagner le jeu avec une bonne reponse
     public void GagnerJeu() 
     {
         StopCoroutine(DecrementerTemps());
