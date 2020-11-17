@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnnemiCtrl : MonoBehaviour
 {
+	//Variable ennemi
     [SerializeField]
     float vitesse = 4f;
 
@@ -30,6 +31,7 @@ public class EnnemiCtrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+		//Si ennemi V1 mouvement programmé
         if (other.tag == "Chemin")
         {
             if (index < chemin.Length - 1)
@@ -41,6 +43,7 @@ public class EnnemiCtrl : MonoBehaviour
                 index = 0;
             }
         }
+		//Si ennemi V2 ennemi tombe avec la gravité
         else if (ennemi.CompareTag("EnnemiV2") && other.tag == "Joueur") 
         {
             ennemi.isKinematic = false;

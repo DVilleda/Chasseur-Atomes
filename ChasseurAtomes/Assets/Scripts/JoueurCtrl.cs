@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JoueurCtrl : MonoBehaviour
 {
+	//Variables joueur
     public CharacterController manette;
     [SerializeField]
     private Transform positionInitiale;
@@ -14,18 +15,22 @@ public class JoueurCtrl : MonoBehaviour
 
     [SerializeField]
     float vitesse = 12.0f, gravite = -9.81f;
-
+	
+	//Variables joueur position
     private Vector3 vitesseJoueur;
     public Transform verifierSol;
     public float distanceSol = 0.4f;
     public LayerMask masqueSol;
     private bool toucheSol;
+	//Animateur
     Animator animator;
-
+	
+	//variable verifier position relative aux objets
     public bool pretCombiner = false;
     public bool leconIonique = false;
     public bool leconCovalent = false;
 
+	//Inventaire et controleurs Interface graphique
     public Inventaire inventaire;
     public SonSFXCtrl ctrlSon;
     public HUD hudctrl;
@@ -40,13 +45,15 @@ public class JoueurCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//Verifier si touche sol
         toucheSol = Physics.CheckSphere(verifierSol.position, distanceSol, masqueSol);
         animator.SetBool("ToucheSol", toucheSol);
         if (toucheSol && vitesseJoueur.y < 0) 
         {
             vitesseJoueur.y = -2f;
         }
-
+		
+		//Gestion du mouvement avec le controller
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -56,7 +63,6 @@ public class JoueurCtrl : MonoBehaviour
         //Verifier la direction mouvement pour animation    
         animator.SetFloat("VitXZ", Mathf.Abs(manette.velocity.x + manette.velocity.z));
 
-        //TODO Ajouter le jump?
         vitesseJoueur.y += gravite * Time.deltaTime;
         manette.Move(vitesseJoueur * Time.deltaTime);
     }
@@ -71,7 +77,8 @@ public class JoueurCtrl : MonoBehaviour
     {
         return erreursRestantes;
     }
-
+	
+	//Toucher un ennemi
     private void PunitionSurveillant() 
     {
         ctrlSon.PerdreUneVie();
@@ -79,22 +86,21 @@ public class JoueurCtrl : MonoBehaviour
         erreursRestantes--;
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        
-    }
-
+	
     public void OnTriggerEnter(Collider other)
     {
+		//Verifier si la collison est avec un ennemi
         if (other.tag == "EnnemiV1" || other.tag == "EnnemiV2")
         {
             Debug.Log(other.gameObject.name);
             PunitionSurveillant();
         }
+		//Verifier si on touche le collider du bureau
         else if (other.tag == "Bureau" && inventaire.Conteneur.Count>0)
         {
             pretCombiner = true;
         }
+		//Verifier si on est devant une affiche de lecon
         else if (other.tag == "Ionique")
         {
             leconIonique = true;
@@ -103,7 +109,8 @@ public class JoueurCtrl : MonoBehaviour
         {
             leconCovalent = true;
         }
-
+	
+		//Verifier si on a touche un atome et ajout a l'inventaire
         var item = other.GetComponent<Item>();
         if (item) {
             ctrlSon.RammasserAtome();
